@@ -127,21 +127,23 @@ begin
   Self.ParseServerResponse(ServerResponse);
   FDigestRec.url := Url;
   FDigestRec.nc := FormatFloat('00000000', AttemptNum);
-  FDigestRec.cnonce := '0a4f113b';
-  HA1 := Self.GetMD5(Username + ':' + FDigestRec.realm + ':' + Password);
-  HA2 := Self.GetMD5('GET' + ':' +Url);
-  Text := Lowercase(HA1 + ':' + FDigestRec.nonce + ':' + FDigestRec.nc
-    + ':' + FDigestRec.cnonce + ':' + 'auth' + ':' + HA2);
+  //FDigestRec.cnonce := '0a4f113b';
+  FDigestRec.cnonce := 'b817c618cd7da4e1';
+  Text := Username + ':' + FDigestRec.realm + ':' + Password;
+  HA1 := Lowercase(Self.GetMD5(Text));
+  HA2 := Lowercase(Self.GetMD5('GET' + ':' +Url));
+  Text := HA1 + ':' + FDigestRec.nonce + ':' + FDigestRec.nc
+    + ':' + FDigestRec.cnonce + ':' + 'auth' + ':' + HA2;
   HA3 := Lowercase(Self.GetMD5(Text));
   Result := 'Digest '
-    + 'username="' + Username + '",'
-    + 'realm="' + FDigestRec.realm + '",'
-    + 'nonce="' + FDigestRec.nonce + '",'
-    + 'uri="' + Url + '",'
-    + 'qop=auth,'
-    + 'nc=' + FDigestRec.nc + ','
-    + 'cnonce="' + FDigestRec.cnonce + '",'
-    + 'response="' + HA3 + '",'
+    + 'username="' + Username + '", '
+    + 'realm="' + FDigestRec.realm + '", '
+    + 'nonce="' + FDigestRec.nonce + '", '
+    + 'uri="' + Url + '", '
+    + 'qop=auth, '
+    + 'nc=' + FDigestRec.nc + ', '
+    + 'cnonce="' + FDigestRec.cnonce + '", '
+    + 'response="' + HA3 + '", '
     + 'opaque="' + FDigestRec.opaque + '"'
 end;
 

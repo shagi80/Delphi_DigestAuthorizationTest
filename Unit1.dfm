@@ -43,12 +43,21 @@ object Form1: TForm1
   end
   object btnTest: TButton
     Left = 422
-    Top = 82
+    Top = 113
     Width = 75
     Height = 25
     Caption = 'Digest test'
     TabOrder = 3
     OnClick = btnTestClick
+  end
+  object Button2: TButton
+    Left = 422
+    Top = 82
+    Width = 75
+    Height = 25
+    Caption = 'GET TCP'
+    TabOrder = 4
+    OnClick = Button2Click
   end
   object IdHTTP1: TIdHTTP
     MaxLineAction = maException
@@ -63,13 +72,19 @@ object Form1: TForm1
     Request.BasicAuthentication = False
     Request.UserAgent = 'Mozilla/3.0 (compatible; Indy Library)'
     HTTPOptions = [hoInProcessAuth]
-    Left = 424
-    Top = 128
+    Left = 416
+    Top = 208
   end
   object IdLogFile1: TIdLogFile
     Active = True
     Filename = 'Log.txt'
-    Left = 464
-    Top = 120
+    Left = 448
+    Top = 208
+  end
+  object IdTCPClient: TIdTCPClient
+    MaxLineAction = maException
+    Port = 0
+    Left = 424
+    Top = 248
   end
 end
